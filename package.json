@@ -10,7 +10,7 @@
         "base"         : ">= 1.0.0, < 2.0.0",
         "setfunctions" : ">= 0.0.1"
     },
-    "exportedModules": [ "Test.Contract" ],
+    "exportedModules": [ "Contract.Names", "Test.Contract" ],
     "compilerCompatibility": {
         "pakcs": ">= 2.0.0",
         "kics2": ">= 2.0.0"
