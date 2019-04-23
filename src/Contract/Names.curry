@@ -96,11 +96,11 @@ toNonFailName = (++"'nonfail")
 toNonFailQName :: (String,String) -> (String,String)
 toNonFailQName (mn,fn) = (mn, toNonFailName fn)
 
---- Drop the postcondition suffix "'post" from the name:
+--- Drop the postcondition suffix "'nonfail" from the name:
 fromNonFailName :: String -> String
 fromNonFailName f =
   let rf = reverse f
-   in reverse (drop (if take 5 rf == "tsop'" then 5 else 0) rf)
+   in reverse (drop (if take 8 rf == "liafnon'" then 8 else 0) rf)
 
 ------------------------------------------------------------------------
 --- Transforms a qualified operation name starting with `op_xh1...hn'`, where
