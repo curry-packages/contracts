@@ -1,7 +1,7 @@
 ------------------------------------------------------------------------
 --- This module contains some operations to check the correct usage of
 --- contracts (i.e., the occurrences and types of specification and
---- pre/postconditions) in a type-annotated FlatCurry program.
+--- pre/postconditions) in a FlatCurry program.
 ---
 --- @author Michael Hanus
 --- @version April 2019
@@ -11,14 +11,14 @@ module Contract.Usage ( checkContractUsage ) where
 
 import List
 
-import FlatCurry.Goodies (argTypes, resultType )
+import FlatCurry.Goodies ( argTypes, resultType )
 import FlatCurry.Types
 
 import Contract.Names
 
 --- Checks the intended usage of contracts, i.e., whether
 --- contracts types correspond to types of functions.
---- The parameter are the module and the list of names and types
+--- The parameter are the module and the list of names and (FlatCurry) types
 --- of all functions defined in this module.
 --- The result is a list of error messages for qualified function names.
 checkContractUsage :: String -> [(String,TypeExpr)] -> [(QName,String)]
