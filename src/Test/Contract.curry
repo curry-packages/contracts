@@ -6,7 +6,7 @@
 --- development of the contract implementation.
 ---
 --- @author Michael Hanus
---- @version December 2018
+--- @version November 2020
 ------------------------------------------------------------------------
 
 module Test.Contract
@@ -18,7 +18,7 @@ module Test.Contract
   )  where
 
 import Control.SetFunctions
-import Unsafe(trace)
+import System.IO.Unsafe     ( trace )
 
 ---------------------------------------------------------------------------
 -- Report the result of checking the pre/postconditions.

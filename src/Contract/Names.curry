@@ -16,9 +16,9 @@ module Contract.Names
   , encodeContractQName, encodeContractName
   )  where
 
-import Char         ( isAlphaNum )
-import List         ( isPrefixOf, isSuffixOf )
-import ReadNumeric  ( readHex )
+import Data.Char  ( isAlphaNum )
+import Data.List  ( isPrefixOf, isSuffixOf )
+import Numeric    ( readHex )
 
 ------------------------------------------------------------------------
 
@@ -123,10 +123,9 @@ decodeContractName fn
 
   fromHex s ""  = reverse s ++ fntail
   fromHex _ [_] = fn
-  fromHex s (c1:c2:cs) =
-    maybe fn
-          (\ (i,r) -> if null r then fromHex (chr i : s) cs else fn)
-          (readHex [c1,c2])
+  fromHex s (c1:c2:cs) = case readHex [c1,c2] of
+    [(i,"")] -> fromHex (chr i : s) cs
+    _        -> fn
 
 --- Transforms a qualified operation name of the form `fn'tail` into a valid
 --- identifier. Thus, if `fn` contains any non-alphanumeric characters,

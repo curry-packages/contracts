@@ -4,12 +4,12 @@
 --- pre/postconditions) in a FlatCurry program.
 ---
 --- @author Michael Hanus
---- @version April 2019
+--- @version November 2020
 ------------------------------------------------------------------------
 
 module Contract.Usage ( checkContractUsage ) where
 
-import List
+import Data.List         ( (\\), find )
 
 import FlatCurry.Goodies ( argTypes, resultType )
 import FlatCurry.Types
