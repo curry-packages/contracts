@@ -22,8 +22,9 @@ import Contract.Names
 --- of all functions defined in this module.
 --- The result is a list of error messages for qualified function names.
 checkContractUsage :: String -> [(String,TypeExpr)] -> [(QName,String)]
-checkContractUsage mn allops =
-  let allopsnames  = map fst allops
+checkContractUsage mn allopsforall =
+  let allops       = map (\ (n,t) -> (n, stripForall t)) allopsforall
+      allopsnames  = map fst allops
       specops      = map (\ (n,t) ->
                             (fromSpecName (decodeContractName n), t))
                          (filter (isSpecName . fst) allops)
@@ -131,5 +132,12 @@ illegalTypeError cond qn = [(qn, cond ++ " has illegal type")]
 
 wrongTypeError :: String -> QName -> [(QName,String)]
 wrongTypeError cond qn = [(qn, "Type of " ++ cond ++ " does not match")]
+
+-- Strip outermost `ForallType` since this quantification is not relevant
+-- for our checks.
+stripForall :: TypeExpr -> TypeExpr
+stripForall texp = case texp of
+  ForallType _ te  -> stripForall te
+  _                -> texp
 
 ------------------------------------------------------------------------
