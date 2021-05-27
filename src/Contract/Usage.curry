@@ -4,15 +4,16 @@
 --- pre/postconditions) in a FlatCurry program.
 ---
 --- @author Michael Hanus
---- @version November 2020
+--- @version May 2021
 ------------------------------------------------------------------------
 
 module Contract.Usage ( checkContractUsage ) where
 
 import Data.List         ( (\\), find )
 
-import FlatCurry.Goodies ( argTypes, resultType )
+import FlatCurry.Goodies   ( argTypes, resultType )
 import FlatCurry.Types
+import FlatCurry.Normalize ( normalizeTypeExpr )
 
 import Contract.Names
 
@@ -63,7 +64,8 @@ checkNonFailTypes mn allops nfops = concatMap checkNonFailTypeOf nfops
  where
   checkNonFailTypeOf (n,t) =
     maybe (notFoundError "non-fail condition" (mn,n))
-          (\ (_,ft) -> checkNonFailType n t ft)
+          (\ (_,ft) -> checkNonFailType n
+                         (normalizeTypeExpr t) (normalizeTypeExpr ft))
           (find (\ (f,_) -> f == n) allops)
 
   checkNonFailType n pt ft
@@ -80,7 +82,8 @@ checkPreTypes mn allops preops = concatMap checkPreTypeOf preops
  where
   checkPreTypeOf (n,t) =
     maybe (notFoundError "precondition" (mn,n))
-          (\ (_,ft) -> checkPreType n t ft)
+          (\ (_,ft) -> checkPreType n
+                         (normalizeTypeExpr t) (normalizeTypeExpr ft))
           (find (\ (f,_) -> f == n) allops)
 
   checkPreType n pt ft
@@ -97,7 +100,8 @@ checkPostTypes mn allops postops = concatMap checkPostTypeOf postops
  where
   checkPostTypeOf (n,t) =
     maybe (notFoundError "postcondition" (mn,n))
-          (\ (_,ft) -> checkPostType n t ft)
+          (\ (_,ft) -> checkPostType n
+                         (normalizeTypeExpr t) (normalizeTypeExpr ft))
           (find (\ (f,_) -> f == n) allops)
 
   checkPostType n pt ft
@@ -114,7 +118,8 @@ checkSpecTypes mn allops specops = concatMap checkSpecTypeOf specops
  where
   checkSpecTypeOf (n,t) =
     maybe (notFoundError "specification" (mn,n))
-          (\ (_,ft) -> checkSpecType n t ft)
+          (\ (_,ft) -> checkSpecType n
+                         (normalizeTypeExpr t) (normalizeTypeExpr ft))
           (find (\ (f,_) -> f == n) allops)
 
   checkSpecType n pt ft
