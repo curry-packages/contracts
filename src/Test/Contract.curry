@@ -6,7 +6,7 @@
 --- development of the contract implementation.
 ---
 --- @author Michael Hanus
---- @version November 2020
+--- @version November 2023
 ------------------------------------------------------------------------
 
 module Test.Contract
@@ -17,7 +17,7 @@ module Test.Contract
   , withPostContract0ND, withPostContract1ND, withPostContract2ND
   )  where
 
-import Control.SetFunctions
+import Control.Search.SetFunctions
 import System.IO.Unsafe     ( trace )
 
 ---------------------------------------------------------------------------
