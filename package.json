@@ -12,7 +12,7 @@
     },
     "exportedModules": [ "Contract.Names", "Contract.Usage", "Test.Contract" ],
     "source": {
-        "git": "https://git.ps.informatik.uni-kiel.de/curry-packages/contracts.git",
+        "git": "https://github.com/curry-packages/contracts.git",
         "tag": "$version"
     }
 }
